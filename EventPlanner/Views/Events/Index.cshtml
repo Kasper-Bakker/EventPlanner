@@ -1,0 +1,33 @@
+﻿@model IEnumerable<EventPlanner.Models.Event>
+
+<h1>Events</h1>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th>Location</th>
+            <th>Date</th>
+            <th>Organizer</th>
+            <th>Category</th>
+            <td>AvailableSeats</td>
+
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var ev in Model)
+        {
+            <tr>
+                <td>@ev.Name</td>
+                <td>@ev.Location</td>
+                <td>@ev.DateTime</td>
+                <td>@ev.Organizer.Name</td>
+                <td>@ev.Category.Name</td>
+                <td>@ev.GetAvailableSeats()</td>
+                <td><a href="/Events/Details/@ev.Id">Details</a></td>
+                
+            </tr>
+        }
+    </tbody>
+</table>

@@ -1,0 +1,26 @@
+﻿<form method="post">
+    <div class="form-group">
+        <label for="Name">Name</label>
+        <input type="text" class="form-control" id="Name" name="Name" required>
+    </div>
+    <div class="form-group">
+        <label for="CategoryId">Category</label>
+        <select class="form-control" id="CategoryId" name="CategoryId">
+            @foreach (var category in ViewBag.Categories)
+            {
+                <option value="@category.Id">@category.Name</option>
+            }
+        </select>
+    </div>
+    <div class="form-group">
+        <label for="OrganizerId">Organizer</label>
+        <select class="form-control" id="OrganizerId" name="OrganizerId">
+            @foreach (var organizer in ViewBag.Organizers)
+            {
+                <option value="@organizer.Id">@organizer.Name</option>
+            }
+        </select>
+    </div>
+    <!-- Other form fields -->
+    <button type="submit" class="btn btn-primary">Create</button>
+</form>
