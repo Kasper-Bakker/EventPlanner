@@ -36,7 +36,7 @@ namespace EventPlanner.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Cashiers");
+                    b.ToTable("Cashiers", (string)null);
                 });
 
             modelBuilder.Entity("EventPlanner.Models.Category", b =>
@@ -53,7 +53,7 @@ namespace EventPlanner.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Categories");
+                    b.ToTable("Categories", (string)null);
                 });
 
             modelBuilder.Entity("EventPlanner.Models.Event", b =>
@@ -101,7 +101,7 @@ namespace EventPlanner.Migrations
 
                     b.HasIndex("OrganizerId");
 
-                    b.ToTable("Events");
+                    b.ToTable("Events", (string)null);
                 });
 
             modelBuilder.Entity("EventPlanner.Models.Organizer", b =>
@@ -118,7 +118,7 @@ namespace EventPlanner.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Organizers");
+                    b.ToTable("Organizers", (string)null);
                 });
 
             modelBuilder.Entity("EventPlanner.Models.Participant", b =>
@@ -139,7 +139,7 @@ namespace EventPlanner.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Participants");
+                    b.ToTable("Participants", (string)null);
                 });
 
             modelBuilder.Entity("EventPlanner.Models.Ticket", b =>
@@ -171,7 +171,7 @@ namespace EventPlanner.Migrations
 
                     b.HasIndex("ParticipantId");
 
-                    b.ToTable("Tickets");
+                    b.ToTable("Tickets", (string)null);
                 });
 
             modelBuilder.Entity("EventPlanner.Models.Event", b =>

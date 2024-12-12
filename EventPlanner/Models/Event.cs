@@ -21,10 +21,10 @@ namespace EventPlanner.Models
 
 		// Relationships
 		public int OrganizerId { get; set; }
-		public Organizer Organizer { get; set; }
+		public Organizer? Organizer { get; set; }
 
 		public int CategoryId { get; set; }
-		public Category Category { get; set; }
+		public Category? Category { get; set; }
 
 		public List<Ticket> Tickets { get; set; } = new();
 
