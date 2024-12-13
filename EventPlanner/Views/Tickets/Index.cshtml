@@ -5,8 +5,8 @@
 <table class="table">
     <thead>
         <tr>
-            <th>Event</th>
-            <th>Participant</th>
+            <th>Evenement</th>
+            <th>Deelnemer</th>
             <th>Status</th>
             <th></th>
         </tr>
@@ -18,13 +18,8 @@
                 <td>@(ticket.Event?.Name ?? "Unknown")</td>
                 <td>@(ticket.Participant?.Name ?? "Unknown")</td>
                 <td>@ticket.Status</td>
-                <td>
-                    @if (ticket.Status == "Unpaid")
-                    {
-                        <a href="/Tickets/MarkPaid/@ticket.Id" class="btn btn-success">Mark as Paid</a>
-                    }
-                </td>
             </tr>
         }
     </tbody>
+    <a asp-action="Index" asp-controller="Events" class="btn btn-primary">Teug naar evenementen</a>
 </table>

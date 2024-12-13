@@ -15,7 +15,6 @@ namespace EventPlanner.Data
 		public DbSet<Event> Events { get; set; }
 		public DbSet<Participant> Participants { get; set; }
 		public DbSet<Ticket> Tickets { get; set; }
-		public DbSet<Cashier> Cashiers { get; set; }
 
 		protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
 		{
@@ -32,7 +31,6 @@ namespace EventPlanner.Data
 			modelBuilder.Entity<Organizer>().ToTable("Organizers");
 			modelBuilder.Entity<Participant>().ToTable("Participants");
 			modelBuilder.Entity<Ticket>().ToTable("Tickets");
-			modelBuilder.Entity<Cashier>().ToTable("Cashiers");
 		}
 	}
 

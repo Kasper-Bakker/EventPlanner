@@ -12,19 +12,6 @@ namespace EventPlanner.Migrations
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.CreateTable(
-                name: "Cashiers",
-                columns: table => new
-                {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    Name = table.Column<string>(type: "nvarchar(max)", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Cashiers", x => x.Id);
-                });
-
-            migrationBuilder.CreateTable(
                 name: "Categories",
                 columns: table => new
                 {
@@ -105,18 +92,11 @@ namespace EventPlanner.Migrations
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Status = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     EventId = table.Column<int>(type: "int", nullable: false),
-                    ParticipantId = table.Column<int>(type: "int", nullable: false),
-                    CashierId = table.Column<int>(type: "int", nullable: false)
+                    ParticipantId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Tickets", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_Tickets_Cashiers_CashierId",
-                        column: x => x.CashierId,
-                        principalTable: "Cashiers",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
                         name: "FK_Tickets_Events_EventId",
                         column: x => x.EventId,
@@ -142,11 +122,6 @@ namespace EventPlanner.Migrations
                 column: "OrganizerId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Tickets_CashierId",
-                table: "Tickets",
-                column: "CashierId");
-
-            migrationBuilder.CreateIndex(
                 name: "IX_Tickets_EventId",
                 table: "Tickets",
                 column: "EventId");
@@ -162,9 +137,6 @@ namespace EventPlanner.Migrations
         {
             migrationBuilder.DropTable(
                 name: "Tickets");
-
-            migrationBuilder.DropTable(
-                name: "Cashiers");
 
             migrationBuilder.DropTable(
                 name: "Events");

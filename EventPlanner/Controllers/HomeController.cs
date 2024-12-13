@@ -13,12 +13,16 @@ namespace EventPlanner.Controllers
             _logger = logger;
         }
 
-        public IActionResult Index()
+		public IActionResult Admin()
+		{
+			return View();
+		}
+		public IActionResult Index()
         {
             return View();
         }
 
-        public IActionResult Privacy()
+		public IActionResult Privacy()
         {
             return View();
         }

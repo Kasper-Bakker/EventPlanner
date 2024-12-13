@@ -1,21 +1,29 @@
 ﻿@model EventPlanner.Models.Ticket
 
-<h1>Reserve Ticket</h1>
+<h1>Reserveer jouw ticket voor @Model.Event.Name</h1>
 
-<form method="post">
-    <div class="form-group">
-        <label for="ParticipantId">Participant</label>
-        <select class="form-control" id="ParticipantId" name="ParticipantId">
-            @foreach (var participant in ViewBag.Participants)
-            {
-                <option value="@participant.Id">@participant.Name</option>
-            }
-        </select>
-    </div>
-    <div class="form-group">
-        <label for="EventId">Event</label>
-        <input type="hidden" id="EventId" name="EventId" value="@Model.EventId">
-        <p>@Model.Event.Name</p>
-    </div>
-    <button type="submit" class="btn btn-primary">Reserve</button>
-</form>
+<p>Beschikbare plaatsen: @Model.Event.GetAvailableSeats()</p>
+
+@if (Model.Event.GetAvailableSeats() > 0)
+{
+    <form method="post">
+        <div class="form-group">
+            <label for="ParticipantName">Naam</label>
+            <input type="text" id="ParticipantName" name="ParticipantName" class="form-control" required />
+        </div>
+        <div class="form-group">
+            <label for="Email">Email</label>
+            <input type="email" id="Email" name="Email" class="form-control" required />
+        </div>
+
+        <button type="submit" class="btn btn-primary">Koop Ticket</button>
+    </form>
+}
+else
+{
+    <p>Geen plaatsen beschikbaar voor dit evemement.</p>
+}
+
+<div>
+    <a asp-action="Index">Terug naar evenementen lijst.</a>
+</div>

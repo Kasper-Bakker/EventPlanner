@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace EventPlanner.Migrations
 {
     [DbContext(typeof(Database))]
-    [Migration("20241212110127_updatedatabase")]
+    [Migration("20241213111104_updatedatabase")]
     partial class updatedatabase
     {
         /// <inheritdoc />
@@ -24,23 +24,6 @@ namespace EventPlanner.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
-
-            modelBuilder.Entity("EventPlanner.Models.Cashier", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Cashiers", (string)null);
-                });
 
             modelBuilder.Entity("EventPlanner.Models.Category", b =>
                 {
@@ -153,9 +136,6 @@ namespace EventPlanner.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<int>("CashierId")
-                        .HasColumnType("int");
-
                     b.Property<int>("EventId")
                         .HasColumnType("int");
 
@@ -167,8 +147,6 @@ namespace EventPlanner.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("CashierId");
 
                     b.HasIndex("EventId");
 
@@ -198,12 +176,6 @@ namespace EventPlanner.Migrations
 
             modelBuilder.Entity("EventPlanner.Models.Ticket", b =>
                 {
-                    b.HasOne("EventPlanner.Models.Cashier", "Cashier")
-                        .WithMany("Tickets")
-                        .HasForeignKey("CashierId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
                     b.HasOne("EventPlanner.Models.Event", "Event")
                         .WithMany("Tickets")
                         .HasForeignKey("EventId")
@@ -216,16 +188,9 @@ namespace EventPlanner.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("Cashier");
-
                     b.Navigation("Event");
 
                     b.Navigation("Participant");
-                });
-
-            modelBuilder.Entity("EventPlanner.Models.Cashier", b =>
-                {
-                    b.Navigation("Tickets");
                 });
 
             modelBuilder.Entity("EventPlanner.Models.Category", b =>

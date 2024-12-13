@@ -6,15 +6,15 @@ namespace EventPlanner.Models
 	{
 		public int Id { get; set; }
 		[Required]
-		public string Status { get; set; } = "Unpaid"; 
-
+		public string Status { get; set; } = "Niet betaald";
+		[Display(Name = "Evenement")]
 		public int EventId { get; set; }
+		[Display(Name = "Evenement")]
 		public Event Event { get; set; }
-
+		[Display(Name = "Deelenemer")]
 		public int ParticipantId { get; set; }
+		[Display(Name = "Deelenemer")]
 		public Participant Participant { get; set; }
 
-		public int CashierId { get; set; }
-		public Cashier Cashier { get; set; }
 	}
 }
