@@ -1,35 +1,24 @@
 ﻿@model IEnumerable<EventPlanner.Models.Organizer>
 
-@{
-    ViewData["Title"] = "Index";
-}
-
-<h1>Index</h1>
-
-<p>
-    <a asp-action="Create">Create New</a>
-</p>
+<h1>Organizers</h1>
+<a asp-action="Create" class="btn btn-primary">Create New</a>
 <table class="table">
     <thead>
         <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.Name)
-            </th>
-            <th></th>
+            <th>Name</th>
         </tr>
     </thead>
     <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Name)
-            </td>
-            <td>
-                <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
-            </td>
-        </tr>
-}
+        @foreach (var organizer in Model)
+        {
+            <tr>
+                <td>@organizer.Name</td>
+                <td>
+                    <a asp-action="Edit" asp-route-id="@organizer.Id">Edit</a> |
+                    <a asp-action="Details" asp-route-id="@organizer.Id">Details</a> |
+                    <a asp-action="Delete" asp-route-id="@organizer.Id">Delete</a>
+                </td>
+            </tr>
+        }
     </tbody>
 </table>

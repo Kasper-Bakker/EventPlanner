@@ -15,8 +15,8 @@
         @foreach (var ticket in Model)
         {
             <tr>
-                <td>@ticket.Event.Name</td>
-                <td>@ticket.Participant.Name</td>
+                <td>@(ticket.Event?.Name ?? "Unknown")</td>
+                <td>@(ticket.Participant?.Name ?? "Unknown")</td>
                 <td>@ticket.Status</td>
                 <td>
                     @if (ticket.Status == "Unpaid")

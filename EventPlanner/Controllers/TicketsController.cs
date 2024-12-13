@@ -14,6 +14,16 @@ namespace EventPlanner.Controllers
 			_context = context;
 		}
 
+		public async Task<IActionResult> Index()
+		{
+			var tickets = await _context.Tickets
+				.Include(t => t.Event)
+				.Include(t => t.Participant)
+				.ToListAsync();
+
+			return View(tickets);
+		}
+
 		// GET: Tickets/Reserve/5
 		public async Task<IActionResult> Reserve(int? eventId)
 		{
