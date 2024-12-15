@@ -56,18 +56,14 @@ namespace EventPlanner.Controllers
 		}
 
 
-
-
-
-
 		// POST: Tickets/Reserve
 		[HttpPost]
 		[ValidateAntiForgeryToken]
-		public async Task<IActionResult> Reserve(int eventId, string ParticipantName, string Email, int TicketCount)
+		public async Task<IActionResult> Reserve(Ticket ticket, string ParticipantName, string Email)
 		{
 			var ev = await _context.Events
 				.Include(e => e.Tickets)
-				.FirstOrDefaultAsync(e => e.Id == eventId);
+				.FirstOrDefaultAsync(e => e.Id == ticket.EventId);
 
 			if (ev == null || ev.GetAvailableSeats() <= 0)
 			{
@@ -88,22 +84,24 @@ namespace EventPlanner.Controllers
 				await _context.SaveChangesAsync();
 			}
 
-			for (int i = 0; i < TicketCount; i++)
-			{
-				var ticket = new Ticket
-				{
-					EventId = ev.Id,
-					Status = "Niet betaald", 
-					ParticipantId = participant.Id
-				};
+			ticket.ParticipantId = participant.Id;
+			ticket.Status = "Niet betaald";
 
-				_context.Tickets.Add(ticket);
-			}
+			ticket.ConfirmationNumber = GenerateConfirmationNumber();
 
+			ev.Tickets.Add(ticket);
 			await _context.SaveChangesAsync();
 
-			return RedirectToAction("Index", "Events");
+			return RedirectToAction("Confirmation", new { ticketId = ticket.Id });
 		}
+
+		private string GenerateConfirmationNumber()
+		{
+			Random rand = new Random();
+			int randomNumber = rand.Next(1000, 9999);  
+			return $"#{randomNumber}";
+		}
+
 
 
 		// GET: Tickets/MarkPaid/5
@@ -135,7 +133,56 @@ namespace EventPlanner.Controllers
 			return View(tickets);
 		}
 
+		// GET: Tickets/Delete/5
+		public async Task<IActionResult> Delete(int? id)
+		{
+			if (id == null)
+			{
+				return NotFound();
+			}
 
+			var ticket = await _context.Tickets
+				.Include(t => t.Event)
+				.Include(t => t.Participant)
+				.FirstOrDefaultAsync(t => t.Id == id);
+
+			if (ticket == null)
+			{
+				return NotFound();
+			}
+
+			return View(ticket);
+		}
+
+		// POST: Tickets/Delete/5
+		[HttpPost, ActionName("Delete")]
+		[ValidateAntiForgeryToken]
+		public async Task<IActionResult> DeleteConfirmed(int id)
+		{
+			var ticket = await _context.Tickets.FindAsync(id);
+			if (ticket != null)
+			{
+				_context.Tickets.Remove(ticket);  
+				await _context.SaveChangesAsync(); 
+			}
+
+			return RedirectToAction(nameof(Ticketadmin));  
+		}
+
+		public IActionResult Confirmation(int ticketId)
+		{
+			var ticket = _context.Tickets
+				.Include(t => t.Event)
+				.Include(t => t.Participant)
+				.FirstOrDefault(t => t.Id == ticketId);
+
+			if (ticket == null)
+			{
+				return NotFound();
+			}
+
+			return View(ticket);
+		}
 
 
 	}

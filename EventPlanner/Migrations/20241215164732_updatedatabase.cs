@@ -92,7 +92,8 @@ namespace EventPlanner.Migrations
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Status = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     EventId = table.Column<int>(type: "int", nullable: false),
-                    ParticipantId = table.Column<int>(type: "int", nullable: false)
+                    ParticipantId = table.Column<int>(type: "int", nullable: false),
+                    ConfirmationNumber = table.Column<string>(type: "nvarchar(max)", nullable: false)
                 },
                 constraints: table =>
                 {

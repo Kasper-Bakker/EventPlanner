@@ -1,0 +1,33 @@
+﻿@model EventPlanner.Models.Ticket
+
+<h1>Bevestiging van je Ticket</h1>
+
+<p>Bedankt voor je aankoop! Je ticket is succesvol gereserveerd.</p>
+
+<div>
+    <h3>Ticket Gegevens</h3>
+    <dl class="row">
+        <dt class="col-sm-2">Evenement</dt>
+        <dd class="col-sm-10">@Model.Event.Name</dd>
+
+        <dt class="col-sm-2">Deelnemer</dt>
+        <dd class="col-sm-10">@Model.Participant.Name</dd>
+
+        <dt class="col-sm-2">Email</dt>
+        <dd class="col-sm-10">@Model.Participant.Email</dd>
+
+        <dt class="col-sm-2">Status</dt>
+        <dd class="col-sm-10">@Model.Status</dd>
+
+        <dt class="col-sm-2">Bevestigingsnummer</dt>
+        <dd class="col-sm-10">@Model.ConfirmationNumber</dd>
+    </dl>
+</div>
+
+<div>
+    <p>Er is een bevestigingsmail gestuurd naar @Model.Participant.Email. Je bevestigingsnummer is: @Model.ConfirmationNumber.</p>
+</div>
+
+<div>
+    <a asp-action="Index" class="btn btn-primary">Terug naar evenementenlijst</a>
+</div>

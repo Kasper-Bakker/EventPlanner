@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace EventPlanner.Migrations
 {
     [DbContext(typeof(Database))]
-    [Migration("20241215153548_updatedatabase")]
+    [Migration("20241215164732_updatedatabase")]
     partial class updatedatabase
     {
         /// <inheritdoc />
@@ -135,6 +135,10 @@ namespace EventPlanner.Migrations
                         .HasColumnType("int");
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("ConfirmationNumber")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("EventId")
                         .HasColumnType("int");

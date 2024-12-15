@@ -15,6 +15,8 @@ namespace EventPlanner.Models
 		public int ParticipantId { get; set; }
 		[Display(Name = "Deelenemer")]
 		public Participant Participant { get; set; }
+		[Display(Name = "Bevestigingsnummer")]
+		public string ConfirmationNumber { get; set; }
 
 	}
 }
