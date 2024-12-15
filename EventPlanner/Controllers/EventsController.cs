@@ -104,7 +104,7 @@ namespace EventPlanner.Controllers
 				}
 				return RedirectToAction(nameof(Index));
 			}
-			// Vul de ViewBag opnieuw in geval van validatiefouten
+
 			ViewBag.CategoryId = new SelectList(_context.Categories, "Id", "Name", ev.CategoryId);
 			ViewBag.OrganizerId = new SelectList(_context.Organizers, "Id", "Name", ev.OrganizerId);
 			return View(ev);
@@ -139,6 +139,17 @@ namespace EventPlanner.Controllers
 			}
 			return RedirectToAction(nameof(Index));
 		}
+
+		public async Task<IActionResult> EventAdmin()
+		{
+			var events = await _context.Events
+				.Include(e => e.Category)
+				.Include(e => e.Organizer)
+				.ToListAsync();
+
+			return View(events);
+		}
+
 
 		private bool EventExists(int id)
 		{

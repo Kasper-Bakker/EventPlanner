@@ -6,6 +6,12 @@
 
 <h1>Evenementen</h1>
 
+<div class="mb-3">
+    <a asp-action="Create" class="btn btn-primary">Maak nieuw evenement</a>
+    <a asp-action="Create" asp-controller="Organizers" class="btn btn-secondary">Voeg organisator toe</a>
+    <a asp-action="Create" asp-controller="Categories" class="btn btn-secondary">Voeg categorie toe</a>
+</div>
+
 <table class="table table-striped">
     <thead>
         <tr>
@@ -53,9 +59,8 @@
                 </td>
 
                 <td>
-                    <a asp-action="Details" asp-route-id="@item.Id" class="btn btn-primary">Informatie</a>
-                    <a asp-controller="Tickets" asp-action="Reserve" asp-route-eventId="@item.Id" class="btn btn-primary">Ticket kopen</a>
-
+                    <a asp-action="Edit" asp-route-id="@item.Id" class="btn btn-warning">Bewerk</a>
+                    <a asp-action="Delete" asp-route-id="@item.Id" class="btn btn-danger">Verwijder</a>
                 </td>
 
 

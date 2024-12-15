@@ -16,12 +16,17 @@
             <input type="email" id="Email" name="Email" class="form-control" required />
         </div>
 
-        <button type="submit" class="btn btn-primary">Koop Ticket</button>
+        <div class="form-group">
+            <label for="TicketCount">Aantal Tickets</label>
+            <input type="number" id="TicketCount" name="TicketCount" class="form-control" min="1" max="@Model.Event.GetAvailableSeats()" value="1" required />
+        </div>
+
+        <button type="submit" class="btn btn-primary">Koop Ticket(s)</button>
     </form>
 }
 else
 {
-    <p>Geen plaatsen beschikbaar voor dit evemement.</p>
+    <p>Geen plaatsen beschikbaar voor dit evenement.</p>
 }
 
 <div>

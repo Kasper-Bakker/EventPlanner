@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace EventPlanner.Migrations
 {
     [DbContext(typeof(Database))]
-    [Migration("20241213111104_updatedatabase")]
+    [Migration("20241215153548_updatedatabase")]
     partial class updatedatabase
     {
         /// <inheritdoc />

@@ -33,7 +33,7 @@ namespace EventPlanner.Controllers
 			}
 
 			var ev = await _context.Events
-				.Include(e => e.Tickets) 
+				.Include(e => e.Tickets)
 				.FirstOrDefaultAsync(e => e.Id == eventId);
 
 			if (ev == null)
@@ -46,15 +46,15 @@ namespace EventPlanner.Controllers
 				return BadRequest("No seats available.");
 			}
 
-			var ticket = new Ticket
+			var model = new Ticket
 			{
 				EventId = ev.Id,
-				Status = "Unpaid",
-				Event = ev 
+				Event = ev,
 			};
 
-			return View(ticket); 
+			return View(model);
 		}
+
 
 
 
@@ -63,41 +63,42 @@ namespace EventPlanner.Controllers
 		// POST: Tickets/Reserve
 		[HttpPost]
 		[ValidateAntiForgeryToken]
-		public async Task<IActionResult> Reserve(Ticket ticket, string ParticipantName, string Email)
+		public async Task<IActionResult> Reserve(int eventId, string ParticipantName, string Email, int TicketCount)
 		{
-
 			var ev = await _context.Events
-				.Include(e => e.Tickets)  
-				.FirstOrDefaultAsync(e => e.Id == ticket.EventId);
+				.Include(e => e.Tickets)
+				.FirstOrDefaultAsync(e => e.Id == eventId);
 
 			if (ev == null || ev.GetAvailableSeats() <= 0)
 			{
 				return BadRequest("Geen plaatsen beschikbaar.");
 			}
 
-
 			var participant = await _context.Participants
 				.FirstOrDefaultAsync(p => p.Name == ParticipantName);
 
 			if (participant == null)
 			{
-
 				participant = new Participant
 				{
 					Name = ParticipantName,
-					Email = Email 
+					Email = Email
 				};
 				_context.Participants.Add(participant);
-				await _context.SaveChangesAsync();  
+				await _context.SaveChangesAsync();
 			}
 
+			for (int i = 0; i < TicketCount; i++)
+			{
+				var ticket = new Ticket
+				{
+					EventId = ev.Id,
+					Status = "Niet betaald", 
+					ParticipantId = participant.Id
+				};
 
-			ticket.ParticipantId = participant.Id;
-			ticket.Status = "Niet betaald"; 
-
-		
-			ev.Tickets.Add(ticket);
-
+				_context.Tickets.Add(ticket);
+			}
 
 			await _context.SaveChangesAsync();
 
